@@ -1,0 +1,75 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.RC2'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+ext {
+	cacheType = System.properties['spring.cache.type']
+	println "${cacheType}"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.spring.cache'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-cache')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	if (cacheType == 'jcache') {
+		compile('javax.cache:cache-api')
+	}
+	if (cacheType == 'caffeine') {
+		compile('com.github.ben-manes.caffeine:caffeine')
+	}
+	if (cacheType == 'couchbase') {
+		compile('com.couchbase.client:java-client')
+		compile('com.couchbase.client:couchbase-spring-cache')
+	}
+	if (cacheType == 'ehcache2') {
+		compile('net.sf.ehcache:ehcache')
+	}
+	//if (cacheType == 'ehcache') {
+		println "Installing dependency ehcache"
+		compile('javax.cache:cache-api')
+		compile('org.ehcache:ehcache')
+	//}
+	if (cacheType == 'hazelcast') {
+		compile('com.hazelcast:hazelcast')
+		compile('com.hazelcast:hazelcast-spring')
+	}
+	if (cacheType == 'infinispan') {
+		compile('org.infinispan:infinispan-spring4-embedded')
+		compile('org.infinispan:infinispan-jcache')
+	}
+	if (cacheType == 'redis') {
+		compile('org.springframework.boot:spring-boot-starter-data-redis')
+	}
+	if (cacheType == 'guava') {
+		compile('com.google.guava:guava:18.0')
+	}
+}
+
+bootRun {
+	systemProperties System.properties
+}
