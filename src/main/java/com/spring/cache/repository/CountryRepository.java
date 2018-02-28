@@ -1,5 +1,6 @@
-package com.spring.cache;
+package com.spring.cache.repository;
 
+import com.spring.cache.domain.Country;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;

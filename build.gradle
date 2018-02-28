@@ -13,7 +13,7 @@ buildscript {
 }
 
 ext {
-	cacheType = System.properties['spring.cache.type']
+	cacheType = System.properties['local.spring.cache.type']
 	println "${cacheType}"
 }
 
@@ -49,11 +49,11 @@ dependencies {
 	if (cacheType == 'ehcache2') {
 		compile('net.sf.ehcache:ehcache')
 	}
-	//if (cacheType == 'ehcache') {
+	if (cacheType == 'ehcache') {
 		println "Installing dependency ehcache"
 		compile('javax.cache:cache-api')
 		compile('org.ehcache:ehcache')
-	//}
+	}
 	if (cacheType == 'hazelcast') {
 		compile('com.hazelcast:hazelcast')
 		compile('com.hazelcast:hazelcast-spring')

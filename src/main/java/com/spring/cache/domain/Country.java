@@ -1,4 +1,4 @@
-package com.spring.cache;
+package com.spring.cache.domain;
 
 import java.io.Serializable;
 

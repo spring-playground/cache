@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import com.spring.cache.repository.CountryRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -42,7 +43,7 @@ class SampleClient {
 		this.random = new Random();
 	}
 
-	@Scheduled(fixedDelay = 500)
+	@Scheduled(fixedDelay = 5000)
 	public void retrieveCountry() {
 		String randomCode = SAMPLE_COUNTRY_CODES
 				.get(this.random.nextInt(SAMPLE_COUNTRY_CODES.size()));
